@@ -13,6 +13,7 @@ import org.example.commands.StoryMode.PlayCommand;
 import org.example.commands.StoryMode.Saving.StoryResetCommand;
 
 // WAVELENGTH IMPORTS
+import org.example.commands.hitster.HitsterCommand;
 import org.example.commands.wavelength.*;
 
 public class MyBot extends ListenerAdapter {
@@ -43,6 +44,7 @@ public class MyBot extends ListenerAdapter {
                         new PlayCommand(),
                         new StoryResetCommand(),
                         new PurgeCommand(),
+                        new HitsterCommand(),
 
                         // WAVELENGTH COMMANDS
                         new Wavelength2Players(wavelengthManager),
@@ -75,6 +77,7 @@ public class MyBot extends ListenerAdapter {
                 Commands.slash("purge", "löscht nachrichten")
                         .addOption(OptionType.INTEGER, "amount", "Anzahl der zu löschenden Nachrichten", true)
                         .addOption(OptionType.USER, "user", "Wen willst du testen?", false),
+                Commands.slash("hitster", "Spielt einen zufälligen Song blind im Voicechannel"),
 
                 // WAVELENGTH COMMANDS
                 Commands.slash("wavelength2players", "Starte Wavelength mit 2 Spielern"),

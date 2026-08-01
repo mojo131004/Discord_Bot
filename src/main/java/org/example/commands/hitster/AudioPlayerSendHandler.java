@@ -1,4 +1,4 @@
-/*package org.example.commands.audioplayer;
+package org.example.commands.hitster;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame;
@@ -8,27 +8,28 @@ import java.nio.ByteBuffer;
 
 public class AudioPlayerSendHandler implements AudioSendHandler {
 
-    private final AudioPlayer audioPlayer;
+    private final AudioPlayer player;
     private AudioFrame lastFrame;
 
-    public AudioPlayerSendHandler(AudioPlayer audioPlayer) {
-        this.audioPlayer = audioPlayer;
+    public AudioPlayerSendHandler(AudioPlayer player) {
+        this.player = player;
     }
 
     @Override
     public boolean canProvide() {
-        lastFrame = audioPlayer.provide();
+        lastFrame = player.provide();
         return lastFrame != null;
     }
 
     @Override
     public ByteBuffer provide20MsAudio() {
+        // PCM von Lavaplayer
         return ByteBuffer.wrap(lastFrame.getData());
     }
 
     @Override
     public boolean isOpus() {
-        return true;
+        // WICHTIG: PCM → JDA encodiert → OPUS
+        return false;
     }
 }
-*/

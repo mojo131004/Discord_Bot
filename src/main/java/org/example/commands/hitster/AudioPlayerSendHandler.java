@@ -23,13 +23,16 @@ public class AudioPlayerSendHandler implements AudioSendHandler {
 
     @Override
     public ByteBuffer provide20MsAudio() {
-        // PCM von Lavaplayer
+        if (lastFrame == null) {
+            return null;
+        }
+
         return ByteBuffer.wrap(lastFrame.getData());
     }
 
     @Override
     public boolean isOpus() {
-        // WICHTIG: PCM → JDA encodiert → OPUS
-        return false;
+        // Lavaplayer liefert bereits Opus-kodierte Frames
+        return true;
     }
 }

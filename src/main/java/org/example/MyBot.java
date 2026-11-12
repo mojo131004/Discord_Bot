@@ -30,7 +30,7 @@ public class MyBot extends ListenerAdapter {
                         GatewayIntent.MESSAGE_CONTENT,
                         GatewayIntent.GUILD_VOICE_STATES)
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
-                .setMemberCachePolicy(MemberCachePolicy.ALL)
+                .setMemberCachePolicy(MemberCachePolicy.VOICE)
                 .addEventListeners(
                         new PingCommand(),
                         new CountdownCommand(),
@@ -44,7 +44,8 @@ public class MyBot extends ListenerAdapter {
                         new PlayCommand(),
                         new StoryResetCommand(),
                         new PurgeCommand(),
-                        new HitsterCommand(),
+                       // new HitsterCommand(),
+                        new VoiceDebugListener(),
 
                         // WAVELENGTH COMMANDS
                         new Wavelength2Players(wavelengthManager),
@@ -77,7 +78,7 @@ public class MyBot extends ListenerAdapter {
                 Commands.slash("purge", "löscht nachrichten")
                         .addOption(OptionType.INTEGER, "amount", "Anzahl der zu löschenden Nachrichten", true)
                         .addOption(OptionType.USER, "user", "Wen willst du testen?", false),
-                Commands.slash("hitster", "Spielt einen zufälligen Song blind im Voicechannel"),
+               // Commands.slash("hitster", "Spielt einen zufälligen Song blind im Voicechannel")
 
                 // WAVELENGTH COMMANDS
                 Commands.slash("wavelength2players", "Starte Wavelength mit 2 Spielern"),

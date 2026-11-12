@@ -1,32 +1,22 @@
 package org.example.commands.hitster;
 
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import net.dv8tion.jda.api.entities.Guild;
+import org.example.audio.PlayerManager;
+import org.example.audio.GuildMusicManager;
 
 public class AudioPlayerController {
 
-    private final AudioPlayerManager playerManager;
-    private final AudioPlayer player;
-
-    public AudioPlayerController() {
-        playerManager = new DefaultAudioPlayerManager();
-
-        // Lokale Dateien registrieren
-        AudioSourceManagers.registerLocalSource(playerManager);
-
-        // EIN Player für alles
-        player = playerManager.createPlayer();
-    }
-
-    public void attach(Guild guild) {
-        guild.getAudioManager().setSendingHandler(new AudioPlayerSendHandler(player));
-    }
-
     public void play(Guild guild, String filePath) {
-        attach(guild);
-        playerManager.loadItem(filePath, new AudioLoadHandler(player));
+
+        // Hole den MusicManager für die Guild
+        GuildMusicManager musicManager = PlayerManager.getInstance()
+                .getGuildMusicManager(guild);
+
+        // Lade den Track über Lavaplayer
+        PlayerManager.getInstance().getPlayerManager().loadItemOrdered(
+                guild,
+                filePath,
+                new AudioLoadHandler(musicManager.getScheduler())
+        );
     }
 }
